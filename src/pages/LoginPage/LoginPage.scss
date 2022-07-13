@@ -1,0 +1,19 @@
+@use './../../assets/scss/' as *;
+
+.LoginPage__wrapper {
+    display: flex;
+
+    .LoginPage__left {
+        flex: 1;
+        background-image: url('./../../assets/imgs/bg-login.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .LoginPage__right {
+        position: relative;
+        float: right;
+        width: 560px;
+    }
+}
