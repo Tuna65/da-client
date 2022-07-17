@@ -1,0 +1,13 @@
+@use './../../../assets/scss/' as *;
+
+.MainPage__wrapper {
+    background-color: $bg-color;
+
+    h1 {
+        font-size: 20px;
+        font-weight: 500;
+        color: $element-color;
+        text-align: center;
+        margin: 20px 0;
+    }
+}

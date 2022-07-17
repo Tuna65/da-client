@@ -1,0 +1,90 @@
+@use './../../assets/scss/' as *;
+
+.Header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 0 3px 2px #ccc;
+
+    .Header__left {
+        .Header__left-img {
+            width: 450px;
+        }
+    }
+
+    .Header__right {
+        .Header__right-container-info {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            & > * {
+                margin-left: 8px;
+            }
+
+            img {
+                width: 30px;
+                height: 28px;
+                border-radius: 50%;
+            }
+
+            span {
+                font-size: 16px;
+                font-weight: 500;
+                color: $black-color21;
+            }
+
+            svg {
+                font-size: 12px;
+                color: $black-color333;
+                margin-right: 12px;
+            }
+        }
+    }
+}
+
+.options {
+    background-color: $white-color;
+    border: 1px solid #ccc;
+    width: 155px;
+    position: relative;
+    left: 23px;
+    top: 0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+
+    & ::before {
+        border: 10px solid;
+        border-color: transparent transparent #ccc transparent;
+        content: '';
+        display: block;
+        position: absolute;
+        right: 12px;
+        top: -20px;
+    }
+
+    > * {
+        padding: 8px 10px;
+        font-size: 15px;
+        color: $black-color21;
+        cursor: pointer;
+        transition: color 0.4s ease, background-color 0.4s ease;
+
+        &:first-child {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        &:hover {
+            background-color: $element-color;
+            color: $white-color;
+        }
+    }
+}

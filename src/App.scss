@@ -11,7 +11,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    line-height: 16px;
+    line-height: 20px;
     font-size: 16px;
 }
 
@@ -24,4 +24,9 @@ ul {
     padding: 0;
     margin: 0;
     list-style: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: auto;
 }

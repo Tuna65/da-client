@@ -1,0 +1,17 @@
+.RegisterPage__wrapper {
+    display: flex;
+
+    .RegisterPage__left {
+        flex: 1;
+        background-image: url('./../../assets/imgs/bg-login.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .RegisterPage__right {
+        position: relative;
+        float: right;
+        width: 560px;
+    }
+}

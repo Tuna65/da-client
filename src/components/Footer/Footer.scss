@@ -1,0 +1,31 @@
+@use './../../assets/scss/' as *;
+
+.Footer__wrapper {
+    background-color: #666;
+
+    .Footer__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 52px;
+
+        .Footer__inner-between,
+        .Footer__inner-right {
+            span {
+                font-size: 16px;
+                font-weight: 500;
+                color: $white-color;
+
+                a {
+                    color: #00dcff;
+                    cursor: pointer;
+                    margin-left: 6px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
