@@ -1,0 +1,28 @@
+@use './../../assets/scss/' as *;
+
+.FilterStudent__wrapper {
+    .FilterStudent__left {
+        padding: 22px 0;
+        width: 360px;
+        border-right: 1px solid #ccc;
+
+        h1 {
+            color: $element-color;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .FilterStudent__left-options {
+            margin: 20px 0 0;
+            & > * {
+                padding: 6px 12px;
+                border-bottom: 1px solid #ccc;
+            }
+
+            & > :first-child {
+                border-top: 1px solid #ccc;
+            }
+        }
+    }
+}

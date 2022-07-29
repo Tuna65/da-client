@@ -1,57 +1,59 @@
 // eslint-disable-next-line no-unused-vars
-import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.scss';
 
 import img from './../../assets/imgs/thienan.png';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { useRef, useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from './../../context/AuthContext';
+import Warning from '../Warning/Warning';
 
-function LoginForm({ ...item }) {
-    const [userValue, setUserValue] = useState('');
-    const [otherValue, setOtherValue] = useState('');
-    const [isBorderUser, setIsBorderUser] = useState(false);
-    const [isBorderotherValue, setIsBorderotherValue] = useState(false);
+function LoginForm() {
+    //useContext
+    const { loginUser } = useContext(AuthContext);
+    const [loginForm, setLoginForm] = useState({ username: '', password: '' });
+    const { username, password } = loginForm;
 
-    const warning = useRef();
+    // state warning
+    const [showWarning, setShowWarning] = useState(false);
+    const [message, setMessage] = useState('');
 
-    const checkValue = (value, message) => {
-        if (value === '') {
-            warning.current.innerText = `${message}`;
-        }
+    //handle change input
+    const onChangeLoginForm = (e) => {
+        setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
     };
 
-    const checkBorder = (value, func) => {
-        if (value === '') {
-            func(true);
-        } else func(false);
-    };
-
-    const deleteWarning = (userValue, otherValue) => {
-        if (userValue !== '' && otherValue !== '') {
-            warning.current.innerText = '';
-        }
-    };
-
-    const handleSubmit = (e) => {
-        deleteWarning();
-
-        checkValue(otherValue, `You must Enter ${item.inputType}`);
-        checkValue(userValue, 'You must Enter userName');
-
-        checkBorder(userValue, setIsBorderUser);
-        checkBorder(otherValue, setIsBorderotherValue);
+    //handle submit form
+    const history = useNavigate();
+    const login = async (e) => {
         e.preventDefault();
+        try {
+            const loginData = await loginUser(loginForm);
+
+            if (loginData.success) {
+                setShowWarning(false);
+                if (loginData.title === 'student') {
+                    history('/student/form');
+                } else history('/teach/list');
+            } else {
+                setShowWarning(true);
+                setMessage(loginData.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
         <div className="Login__wrapper">
-            <form action="" className="Login__form" method="GET">
+            <form action="" className="Login__form" onSubmit={login}>
                 <div className="Login__form-header">
                     <img src={img} alt="" />
                     <h1>Cổng thông tin đánh giá</h1>
                 </div>
+                {showWarning && <Warning message={message} />}
                 <div className="Login__form-input">
                     <label htmlFor="username" className="label-name">
                         <FontAwesomeIcon icon={faUser} />
@@ -62,40 +64,36 @@ function LoginForm({ ...item }) {
                         name="username"
                         id="username"
                         placeholder="Nhập tên tài khoản"
-                        onChange={(e) => {
-                            setUserValue(e.target.value);
-                            setIsBorderUser(false);
-                        }}
-                        value={userValue}
-                        className={isBorderUser ? 'warning' : ''}
+                        value={username}
+                        onChange={onChangeLoginForm}
+                        
                     />
                 </div>
                 <div className="Login__form-input">
-                    <label htmlFor={item.inputType} className="label-name">
-                        <FontAwesomeIcon icon={item.icon} />
-                        {/* <FontAwesomeIcon icon={faEnvelope} /> */}
-                        {item.type}
+                    <label htmlFor="password" className="label-name">
+                        <FontAwesomeIcon icon={faKey} />
+                        Mật khẩu
                     </label>
                     <input
-                        type={item.inputType}
-                        name={item.inputType}
-                        id={item.inputType}
-                        placeholder={`Nhập ${item.type}`}
-                        onChange={(e) => {
-                            setOtherValue(e.target.value);
-                            setIsBorderotherValue(false);
-                        }}
-                        value={otherValue}
-                        className={isBorderotherValue ? 'warning' : ''}
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Nhập mật khẩu"
+                        value={password}
+                        onChange={onChangeLoginForm}
+                        
                     />
                 </div>
-                <span className="warning-message" ref={warning}></span>
-                <button className="Login__form-btn" type="submit" onClick={handleSubmit}>
-                    {item.btnType}
+                <button
+                    className="Login__form-btn"
+                    type="submit"
+                
+                >
+                    Đăng nhập
                 </button>
             </form>
-            <Link to={item.link}>
-                <span>{item.nav}</span>
+            <Link to="/register">
+                <span>Quên mật khẩu</span>
             </Link>
         </div>
     );
